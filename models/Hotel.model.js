@@ -56,7 +56,7 @@ const hotelSchema = mongoose.Schema({
         // id пользователя занявшего комнату
         roomsOccupied: [
           {
-            userId: { type: mongoose.SchemaTypes.ObjectId, ref: "User"  },
+            userId: { type: mongoose.SchemaTypes.ObjectId, ref: "User" },
             room: Number,
           },
         ],
