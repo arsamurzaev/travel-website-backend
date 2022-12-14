@@ -3,11 +3,11 @@ const User = require('../models/User.midel')
 module.exports.userController={
     
     postUser: async (req, res)=>{
-        const {firstName, secondName, lastName, mail, numderPhone, birthday, gender, adress, documents,seriesOfTheDocument, numberOfTheDocument, dataOfIssue, issuedByWhom, divisionCode } = req.body
+        const {firstName, secondName, lastName, mail, numderPhone, birthday, gender, adress, documents } = req.body
         try {
            const user = await User.create({
-            firstName, secondName, lastName, mail, numderPhone, birthday, gender, adress, documents,seriesOfTheDocument, numberOfTheDocument, dataOfIssue, issuedByWhom, divisionCode
-           }) 
+            firstName, secondName, lastName, mail, numderPhone, birthday, gender, adress, documents }) 
+            
            res.json(user)
 
         } catch (error) {
