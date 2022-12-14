@@ -11,8 +11,7 @@ app.use(expess.json({ extended: true }));
 app.use("/uploads", expess.static(path.join(__dirname, "./uploads/")));
 app.use(cors());
 app.use(morgan("dev"));
-// app.use(require("./routes/index"));
-// app.use(require('./routes/organizations.route'))
+app.use(require("./routes/index"));
 
 const { MDB_SERVER, PORT } = process.env;
 
