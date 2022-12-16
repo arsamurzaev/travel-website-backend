@@ -6,7 +6,6 @@ const morgan = require("morgan");
 const path = require("path");
 
 const app = expess();
-
 app.use(expess.json({ extended: true }));
 app.use("/uploads", expess.static(path.join(__dirname, "./uploads/")));
 app.use(cors());
