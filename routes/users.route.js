@@ -13,10 +13,8 @@ router.post("/add/user", [
     check('secondName', 'поле не должно быть пустым').notEmpty(),
     check('lastName', 'поле не должно быть пустым').notEmpty(),
     check('password', 'пароль должен содердать 4-18 символов').isLength({min: 4, max: 18}),
-    check('mail', 'почта должна быть в формате intocode@intocode.ru').isEmail()
-    
-    
+    check('mail', 'почта должна быть в формате intocode@intocode.ru').isEmail(),
 ], userController.postUser);
-router.get("/users", userController.getUser);
+router.get("/login", userController.login);
 
 module.exports = router;
