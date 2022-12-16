@@ -1,28 +1,31 @@
 const User = require('../models/User.model')
 const bcrypt = require('bcrypt')
+const { validationResult } = require('express-validator')
 
 module.exports.userController = {
 
     postUser: async (req, res) => {
         // Выгрузка данных с req.body
-        const {
-            firstName,
-            secondName,
-            lastName,
-            password,
-            mail,
-            numderPhone,
-            birthday,
-            gender,
-            adress,
-            document,
-            seriesOfTheDocument,
-            numberOfTheDocument,
-            dataOfIssue,
-            issuedByWhom,
-            divisionCode,
-        } = req.body
         try {
+            // выгружаем "результат валидации". 
+            const errors = validationResult(req)
+            // Еррорс коли не ппуст, то выврлим ошибку, ясен пень.
+            if (!errors.isEmpty) {
+                res.json(400).res({message: "Ошибка при регистрации"})
+            }
+            const {
+                firstName,
+                secondName,
+                lastName,
+                password,
+                mail,
+                numderPhone,
+                birthday,
+                gender,
+                adress,
+                documents,
+            } = req.body
+
             const hashPassword = bcrypt.hashSync(password, 5)
             // Сохраняем на бэке эти данные, предварительно поменяв данные, а то там останется
             // по умолчанию с бэка
@@ -35,16 +38,11 @@ module.exports.userController = {
                 birthday,
                 gender,
                 adress,
-                document,
-                seriesOfTheDocument,
-                numberOfTheDocument,
-                dataOfIssue,
-                issuedByWhom,
-                divisionCode,
+                documents,                
                 password: hashPassword
             })
             // это уже ответ пользователю, возвращается юзер
-            res.json(user)
+            res.status(200).json(user)
 
         } catch (error) {
             // Ну тут итак все ясно
@@ -59,4 +57,5 @@ module.exports.userController = {
             res.json({ error: error.toString() })
         }
     }
-}
+  }
+
