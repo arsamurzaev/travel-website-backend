@@ -91,5 +91,14 @@ module.exports.userController = {
         } catch (error) {
             res.json({ error: error.toString() })
         }
+    },
+    getUsers: async (req, res) => {
+        try {
+            const allUsers = await Users.find()
+            res.status(200).json(allUsers)
+        } catch (error) {
+            res.status(400).json({error: error.toString()})
+        }
     }
   }
+//   пишу теперь возможности авторизированному пользователю
