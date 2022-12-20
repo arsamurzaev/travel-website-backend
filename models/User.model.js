@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+//модель для юзера
 const userSchema = mongoose.Schema({
     firstName: {type:String, required: true},
     secondName:{type:String,required: true},

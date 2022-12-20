@@ -23,7 +23,7 @@ const generateAccesToken = (id, role) => {
 // controller 
 
 module.exports.userController={
-    
+    //Запрос на добавление юзера
     postUser: async (req, res)=>{
         // console.log(req.body);
  
