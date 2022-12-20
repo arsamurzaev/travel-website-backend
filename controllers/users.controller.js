@@ -41,7 +41,7 @@ module.exports.userController = {
                 numderPhone,
                 birthday,
                 gender,
-                adress,
+                fullAdress,
                 documents,
             } = req.body
 
@@ -56,7 +56,7 @@ module.exports.userController = {
                 numderPhone,
                 birthday,
                 gender,
-                adress,
+                fullAdress,
                 documents,                
                 password: hashPassword
             })
