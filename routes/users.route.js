@@ -3,6 +3,7 @@ const {Router} = require('express')
 const {userController} = require('../controllers/users.controller')
 const router = Router()
 const {check} = require('express-validator')
+const middleware = require('../middlewares/authMiddleware')
 // тут сверху - валидатор от экспресс. Ниже он применяется как мидлвейр
 
 
@@ -16,5 +17,7 @@ router.post("/add/user", [
     check('mail', 'почта должна быть в формате intocode@intocode.ru').isEmail(),
 ], userController.postUser);
 router.get("/login", userController.login);
+router.get("/users", middleware, userController.getUsers)
+
 
 module.exports = router;
