@@ -1,8 +1,10 @@
-// все роуты сюда 
-const { Router } = require('express')
+const { Router } = require("express");
 
-const router = Router()
+const router = Router();
 
-router.use(require('./users.route'))
+router.use("/hotels", require("./hotels.route"));
+router.use(require("./users.route"));
 
-module.exports = router
+module.exports = router;
+
+
