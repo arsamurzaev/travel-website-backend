@@ -8,11 +8,7 @@ const userSchema = mongoose.Schema({
     numderPhone:{type:Number, required:true},
     birthday:{type:String, required:true},
     gender:{type:String, required:true},
-    adress:{
-        city: {type: String, required:true},
-        fullStreet: {type: String, required:true},
-        postalode: {type: String, required:true},
-    }, 
+    fullAdress:{ type: String, require: true}, 
     documents:{
         document:{type: String, required:true},
         seriesOfTheDocument:{type: String, required:true},
