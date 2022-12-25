@@ -16,7 +16,7 @@ router.post("/add/user", [
     check('password', 'пароль должен содердать 4-18 символов').isLength({min: 4, max: 18}),
     check('mail', 'почта должна быть в формате intocode@intocode.ru').isEmail(),
 ], userController.postUser);
-router.get("/login", userController.login);
+router.post("/login", userController.login);
 router.get("/users", middleware, userController.getUsers)
 // 
 
