@@ -35,6 +35,8 @@ const hotelSchema = mongoose.Schema({
       economy: { description: { type: String, default: "" }, roomNumber: [] },
       business: { description: { type: String, default: "" }, roomNumber: [] },
     },
+    // подробное описание 
+    text: String,
     // Комнаты
     rooms: [
       {

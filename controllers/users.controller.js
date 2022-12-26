@@ -108,6 +108,13 @@ module.exports.userController = {
         } catch (error) {
             res.status(400).json({error: error.toString()})
         }
+    },
+    editUserById: async (req, res) => {
+        try {
+            
+        } catch (error) {
+            
+        }
     }
   }
 //   пишу теперь возможности авторизированному пользователю

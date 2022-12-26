@@ -17,6 +17,7 @@ router.post("/add/user", [
     check('mail', 'почта должна быть в формате intocode@intocode.ru').isEmail(),
 ], userController.postUser);
 router.post("/login", userController.login);
+router.patch("/edit/user/:id", userController.editUserById)
 router.get("/users", middleware, userController.getUsers)
 // 
 
