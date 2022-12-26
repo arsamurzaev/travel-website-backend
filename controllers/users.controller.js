@@ -2,13 +2,13 @@ const User = require('../models/User.model')
 const bcrypt = require('bcrypt') // imported bcrypt [npm i bcrypt]
 const { validationResult } = require('express-validator') // importede validator from express-validator [npm i express-validator]
 const jwt = require('jsonwebtoken') // jwt, we donwloaded [npm i jsonwebtoken]
-const { secret } = require('../config')
+const {JWT_SECRET} = process.env
 
 // funtions
 // Кароче этот булзит помогает генерировать токен
 // Можно заставить его принимать аргументы какие угодно,
 // будь то юзер нейм, пароль или как в нашем случае роль и айди
-const generateAccesToken = (id, role) => {
+const generateAccesToken = (id) => {
     // Пайлод эт как бы данные да, которые будут в дальнейшем
     // обрабатываться, очевидно
     const payload = {
@@ -17,7 +17,7 @@ const generateAccesToken = (id, role) => {
     // Вот таким образом собсна генерируется сам токен, еперный театр. 
     // метод sign принимает пайлод, секретный код (который в файле конфиг) 
     // и время действия токена
-    return jwt.sign(payload, secret, {expiresIn: '24h'})
+    return jwt.sign(payload, JWT_SECRET, {expiresIn: '24h'})
 }
 
 // controller 
@@ -72,22 +72,30 @@ module.exports.userController = {
         try {
             // Как обычно выгружаем с req body необходимое для дальнейшей обработки
             const {mail, numderPhone, password} = req.body
+
             // Ищем юзера по ключу, сравнивая
             const user = await User.findOne({mail})
+
             // Если юзера нет, то воот
             if (!user) {
                 res.status(400).json(`Пользователя с почтой ${mail} не существует`)
             }
+
             // Тут проверяетсяя, валиден ли пароль. Скорее всего, он говорит тру, фолс
             const validPassword = bcrypt.compareSync(password, user.password)
+
             // Если Нэт валид пасворда, то вооот
             if (!validPassword) {
                 res.status(400).json(`Пароль недействителен`)
             }
 
+            // ЭВызывает написанную нами выше функцию
+            
             const token = generateAccesToken(user._id)
 
+            // Затем этот токен используют
             res.json(token)
+
         } catch (error) {
             res.json({ error: error.toString() })
         }
