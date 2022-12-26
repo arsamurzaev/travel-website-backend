@@ -5,6 +5,7 @@ require('dotenv').config()
 const {JWT_SECRET} = process.env
 
 module.exports = (req, res, next) => {
+
     // 25:26 // https://www.youtube.com/watch?v=d_aJdcDq6AY&t=1478s
     if (req.method === "OPTIONS") {
         next()

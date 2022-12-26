@@ -2,7 +2,12 @@ const User = require('../models/User.model')
 const bcrypt = require('bcrypt') // imported bcrypt [npm i bcrypt]
 const { validationResult } = require('express-validator') // importede validator from express-validator [npm i express-validator]
 const jwt = require('jsonwebtoken') // jwt, we donwloaded [npm i jsonwebtoken]
+
 const {JWT_SECRET} = process.env
+
+const { secret } = require('../config')
+const BasketTour = require('../models/Basket.model')
+
 
 // funtions
 // Кароче этот булзит помогает генерировать токен
@@ -21,10 +26,11 @@ const generateAccesToken = (id) => {
 }
 
 // controller 
-module.exports.userController = {
-    postUser: async (req, res) => {
-        // Выгрузка данных с req.body
 
+module.exports.userController = {
+    //Запрос на добавление юзера
+    postUser: async (req, res)=>{
+        
         try {
             // выгружаем "результат валидации". 
             const errors = validationResult(req)
@@ -32,35 +38,28 @@ module.exports.userController = {
             if (!errors.isEmpty) {
                 res.json(400).res({message: "Ошибка при регистрации"})
             }
-            const {
-                firstName,
-                secondName,
-                lastName,
-                password,
-                mail,
-                numderPhone,
-                birthday,
-                gender,
-                adress,
-                documents,
-            } = req.body
+            const {firstName, secondName, lastName, mail, numderPhone, birthday, gender, fullAdress, documents, password } = req.body
 
             const hashPassword = bcrypt.hashSync(password, 5)
             // Сохраняем на бэке эти данные, предварительно поменяв данные, а то там останется
             // по умолчанию с бэка
             const user = await User.create({
-                firstName,
-                secondName,
-                lastName,
-                mail,
-                numderPhone,
-                birthday,
-                gender,
-                adress,
-                documents,                
+                firstName: firstName,
+                secondName: secondName,
+                lastName: lastName,
+                mail: mail,
+                numderPhone: numderPhone,
+                birthday: birthday,
+                gender: gender,
+                fullAdress: fullAdress ,
+                documents: documents,           
                 password: hashPassword
             })
             // это уже ответ пользователю, возвращается юзер
+            
+            await BasketTour.create({
+                userId: user._id
+            })
             res.status(200).json(user)
 
         } catch (error) {
@@ -70,6 +69,7 @@ module.exports.userController = {
     },
     login: async (req, res) => {
         try {
+            console.log(req.body);
             // Как обычно выгружаем с req body необходимое для дальнейшей обработки
             const {mail, numderPhone, password} = req.body
 
@@ -102,6 +102,7 @@ module.exports.userController = {
     },
     getUsers: async (req, res) => {
         try {
+            console.log(req.user);
             const allUsers = await User.find()
             res.status(200).json(allUsers)
         } catch (error) {
