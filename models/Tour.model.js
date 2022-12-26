@@ -2,8 +2,7 @@ const mongoose = require("mongoose");
 
 const tourSchema = mongoose.Schema({
   // Организация разместившая тур
-  creatorTour: { type: mongoose.SchemaTypes.ObjectId, 
-  ref: "Organization" },
+  creatorTour: { type: mongoose.SchemaTypes.ObjectId, ref: "Organization" },
   // Отель который организовывает тур
   hotelId: { type: mongoose.SchemaTypes.ObjectId, ref: "Hotel" },
   // Навзание тура
@@ -32,6 +31,7 @@ const tourSchema = mongoose.Schema({
     // цена
     price: { type: Number, default: 60000 },
   },
+  image: [],
 });
 
 const Tour = mongoose.model("Tour", tourSchema);
