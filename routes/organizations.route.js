@@ -4,6 +4,10 @@ const {
 const { Router } = require("express");
 const organizImage = require("../middlewares/organiz.image");
 
+// Вот мидллвейр от организации
+
+const organizImage = require("../middleware/organiz.image");
+
 const router = Router();
 
 router.get("/organization", organizationController.getAllOrganization);
@@ -16,3 +20,4 @@ router.patch("/organization/:id", organizationController.updateOrganization);
 router.delete("/organization/:id", organizationController.deleteOrganization);
 
 module.exports = router;
+zz;
