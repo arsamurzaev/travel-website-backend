@@ -3,7 +3,6 @@ const Organization = require('../models/Organization.model');
 const bcrypt = require("bcrypt")
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
-const { secret } = require('../config')
 
 
 // dotenv
@@ -25,8 +24,6 @@ const generateAccesToken = (id) => {
     // и время действия токена
     return jwt.sign(payload, JWT_SECRET, {expiresIn: '24h'})
 }
-
-const Organization = require("../models/Organization.model");
 
 
 module.exports.organizationController = {

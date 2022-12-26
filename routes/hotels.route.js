@@ -3,10 +3,10 @@ const { hotelsController } = require("../controllers/hotels.controller");
 
 const router = Router();
 
-router.get("/", hotelsController.getAllHotels);
-router.get("/:id", hotelsController.getHotelById);
-router.post("/", hotelsController.createHotel);
-router.patch("/:id", hotelsController.editHotel);
-router.delete("/:id", hotelsController.deleteHotel);
+router.get("/hotels", hotelsController.getAllHotels);
+router.get("/hotels/:id", hotelsController.getHotelById);
+router.post("/hotels", hotelsController.createHotel);
+router.patch("/hotels/:id", hotelsController.editHotel);
+router.delete("/hotels/:id", hotelsController.deleteHotel);
 
 module.exports = router;
